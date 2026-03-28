@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:checkout_payment_ui/Features/checkout/data/models/payment_intent_request_model.dart';
 import 'package:checkout_payment_ui/Features/checkout/presentation/logic/payment_cubit/payment_cubit.dart';
 import 'package:checkout_payment_ui/Features/checkout/presentation/views/thank_you_view.dart';
 import 'package:checkout_payment_ui/Features/checkout/presentation/views/widgets/payment_methods_list_view.dart';
@@ -45,6 +48,7 @@ class CustomBottomBlocCunsumer extends StatelessWidget {
           }));
         }
         if (state is PaymentFailurer) {
+          log(state.errorMessage.toString());
           SnackBar snackBar = SnackBar(
             content: Text(state.errorMessage),
           );
@@ -53,6 +57,14 @@ class CustomBottomBlocCunsumer extends StatelessWidget {
       },
       builder: (context, state) {
         return CustomButton(
+            onTap: () {
+              PaymentIntentRequestModel paymentIntentRequestModel =
+                  PaymentIntentRequestModel(amount: '100', currency: 'usd');
+
+              BlocProvider.of<PaymentCubit>(context).makePayment(
+                  paymentIntentRequestModel: paymentIntentRequestModel);
+              Navigator.pop(context);
+            },
             isLoading: state is PaymentLoading ? true : false,
             text: 'Continue');
       },

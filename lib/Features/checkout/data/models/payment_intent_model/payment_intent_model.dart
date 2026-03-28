@@ -3,7 +3,7 @@ import 'automatic_payment_methods.dart';
 import 'metadata.dart';
 import 'payment_method_options.dart';
 
-class Payment {
+class PaymentIntentModel {
   String? id;
   String? object;
   int? amount;
@@ -25,12 +25,11 @@ class Payment {
   dynamic lastPaymentError;
   dynamic latestCharge;
   bool? livemode;
-  Metadata? metadata;
   dynamic nextAction;
   dynamic onBehalfOf;
   dynamic paymentMethod;
   PaymentMethodOptions? paymentMethodOptions;
-  List<String>? paymentMethodTypes;
+  List<dynamic>? paymentMethodTypes;
   dynamic processing;
   dynamic receiptEmail;
   dynamic review;
@@ -43,7 +42,7 @@ class Payment {
   dynamic transferData;
   dynamic transferGroup;
 
-  Payment({
+  PaymentIntentModel({
     this.id,
     this.object,
     this.amount,
@@ -65,7 +64,6 @@ class Payment {
     this.lastPaymentError,
     this.latestCharge,
     this.livemode,
-    this.metadata,
     this.nextAction,
     this.onBehalfOf,
     this.paymentMethod,
@@ -84,15 +82,12 @@ class Payment {
     this.transferGroup,
   });
 
-  factory Payment.fromJson(Map<String, dynamic> json) => Payment(
+  factory PaymentIntentModel.fromJson(Map<String, dynamic> json) =>
+      PaymentIntentModel(
         id: json['id'] as String?,
         object: json['object'] as String?,
         amount: json['amount'] as int?,
         amountCapturable: json['amount_capturable'] as int?,
-        amountDetails: json['amount_details'] == null
-            ? null
-            : AmountDetails.fromJson(
-                json['amount_details'] as Map<String, dynamic>),
         amountReceived: json['amount_received'] as int?,
         application: json['application'] as dynamic,
         applicationFeeAmount: json['application_fee_amount'] as dynamic,
@@ -112,9 +107,6 @@ class Payment {
         lastPaymentError: json['last_payment_error'] as dynamic,
         latestCharge: json['latest_charge'] as dynamic,
         livemode: json['livemode'] as bool?,
-        metadata: json['metadata'] == null
-            ? null
-            : Metadata.fromJson(json['metadata'] as Map<String, dynamic>),
         nextAction: json['next_action'] as dynamic,
         onBehalfOf: json['on_behalf_of'] as dynamic,
         paymentMethod: json['payment_method'] as dynamic,
@@ -122,7 +114,7 @@ class Payment {
             ? null
             : PaymentMethodOptions.fromJson(
                 json['payment_method_options'] as Map<String, dynamic>),
-        paymentMethodTypes: json['payment_method_types'] as List<String>?,
+        paymentMethodTypes: json['payment_method_types'] as List<dynamic>?,
         processing: json['processing'] as dynamic,
         receiptEmail: json['receipt_email'] as dynamic,
         review: json['review'] as dynamic,
@@ -159,7 +151,6 @@ class Payment {
         'last_payment_error': lastPaymentError,
         'latest_charge': latestCharge,
         'livemode': livemode,
-        'metadata': metadata?.toJson(),
         'next_action': nextAction,
         'on_behalf_of': onBehalfOf,
         'payment_method': paymentMethod,
