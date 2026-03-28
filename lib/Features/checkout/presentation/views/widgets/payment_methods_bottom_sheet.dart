@@ -44,11 +44,12 @@ class CustomBottomBlocCunsumer extends StatelessWidget {
         if (state is PaymentSuccess) {
           Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) {
-            return ThankYouView();
+            return const ThankYouView();
           }));
         }
         if (state is PaymentFailurer) {
           log(state.errorMessage.toString());
+          Navigator.of(context).pop();
           SnackBar snackBar = SnackBar(
             content: Text(state.errorMessage),
           );
@@ -59,11 +60,10 @@ class CustomBottomBlocCunsumer extends StatelessWidget {
         return CustomButton(
             onTap: () {
               PaymentIntentRequestModel paymentIntentRequestModel =
-                  PaymentIntentRequestModel(amount: '100', currency: 'usd');
+                  PaymentIntentRequestModel(amount: 120, currency: 'usd');
 
               BlocProvider.of<PaymentCubit>(context).makePayment(
                   paymentIntentRequestModel: paymentIntentRequestModel);
-              Navigator.pop(context);
             },
             isLoading: state is PaymentLoading ? true : false,
             text: 'Continue');

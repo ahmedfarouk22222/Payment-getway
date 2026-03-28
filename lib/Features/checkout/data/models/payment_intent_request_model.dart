@@ -1,5 +1,5 @@
 class PaymentIntentRequestModel {
-  final String amount;
+  final int amount;
   final String currency;
   PaymentIntentRequestModel({
     required this.amount,
@@ -7,7 +7,7 @@ class PaymentIntentRequestModel {
   });
   tojson() {
     return {
-      'amount': amount,
+      'amount': amount * 100,
       'currency': currency,
     };
   }
