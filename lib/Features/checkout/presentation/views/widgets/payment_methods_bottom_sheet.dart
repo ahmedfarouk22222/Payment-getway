@@ -60,7 +60,11 @@ class CustomBottomBlocCunsumer extends StatelessWidget {
         return CustomButton(
             onTap: () {
               PaymentIntentRequestModel paymentIntentRequestModel =
-                  PaymentIntentRequestModel(amount: 120, currency: 'usd');
+                  PaymentIntentRequestModel(
+                customerID: 'cus_UEZYIXkVIUdB3j',
+                amount: 120,
+                currency: 'usd',
+              );
 
               BlocProvider.of<PaymentCubit>(context).makePayment(
                   paymentIntentRequestModel: paymentIntentRequestModel);
